@@ -5,11 +5,13 @@ namespace Ejarnutowski\LaravelApiKey\Http\Middleware;
 use Closure;
 use Ejarnutowski\LaravelApiKey\Models\ApiKey;
 use Ejarnutowski\LaravelApiKey\Models\ApiKeyAccessEvent;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class AuthorizeApiKey
 {
     const AUTH_HEADER = 'X-Authorization';
+    const AUTH_SECRET = 'X-Authorization-Secret';
 
     /**
      * Handle the incoming request
@@ -21,9 +23,10 @@ class AuthorizeApiKey
     public function handle(Request $request, Closure $next)
     {
         $header = $request->header(self::AUTH_HEADER);
+        $secret = $request->header(self::AUTH_SECRET);
         $apiKey = ApiKey::getByKey($header);
 
-        if ($apiKey instanceof ApiKey) {
+        if ($apiKey instanceof ApiKey && Hash::check($secret, $apiKey->secret)) {
             $this->logAccessEvent($request, $apiKey);
             return $next($request);
         }

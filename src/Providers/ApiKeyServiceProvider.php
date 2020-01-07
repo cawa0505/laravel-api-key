@@ -8,6 +8,8 @@ use Ejarnutowski\LaravelApiKey\Console\Commands\DeleteApiKey;
 use Ejarnutowski\LaravelApiKey\Console\Commands\GenerateApiKey;
 use Ejarnutowski\LaravelApiKey\Console\Commands\ListApiKeys;
 use Ejarnutowski\LaravelApiKey\Http\Middleware\AuthorizeApiKey;
+use Ejarnutowski\LaravelApiKey\Models\ApiKey;
+use Ejarnutowski\LaravelApiKey\Observers\ApiKeyObserver;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +25,8 @@ class ApiKeyServiceProvider extends ServiceProvider
     {
         $this->registerMiddleware($router);
         $this->registerMigrations(__DIR__ . '/../../database/migrations');
+
+        ApiKey::observe(ApiKeyObserver::class);
     }
 
     /**

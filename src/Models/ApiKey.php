@@ -4,6 +4,7 @@ namespace Ejarnutowski\LaravelApiKey\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class ApiKey extends Model
@@ -74,13 +75,22 @@ class ApiKey extends Model
      *
      * @return string
      */
-    public static function generate()
+    public static function generateKey()
     {
         do {
             $key = Str::random(64);
         } while (self::keyExists($key));
 
         return $key;
+    }
+
+    /**
+     * Generate a key/secret pair
+     *
+     * @return array
+     */
+    public static function generateSecret() {
+        return Str::random(64);
     }
 
     /**
