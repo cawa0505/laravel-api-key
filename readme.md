@@ -1,15 +1,11 @@
-Laravel API Key Auth
+Laravel API Key Auth with optional secret key
 ========
-
-<a href="https://packagist.org/packages/ejarnutowski/laravel-api-key"><img src="https://poser.pugx.org/ejarnutowski/laravel-api-key/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/ejarnutowski/laravel-api-key"><img src="https://poser.pugx.org/ejarnutowski/laravel-api-key/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/ejarnutowski/laravel-api-key"><img src="https://poser.pugx.org/ejarnutowski/laravel-api-key/license.svg" alt="License"></a>
 
 ## Installation
 
 Since this version is a fork, load the package from as a <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS repository</a>.
 
-Run `composer config repositories.stillatmylinux vcs https://github.com/stillatmylinux/laravel-api-key.git`
+Run `composer config repositories.stillatmylinux vcs https://github.com/stillatmylinux/laravel-api-key.git`  
 Run `composer require stillatmylinux/laravel-api-key:dev-master`
 
 Composer will auto discover the ApiKeyServiceProvider. However, if it does not, in your `config/app.php` file, add the Laravel API Key service provider to the end of the `providers` array.
