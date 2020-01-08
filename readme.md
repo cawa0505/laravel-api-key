@@ -42,6 +42,7 @@ $ php artisan apikey:generate app1
 // API key created
 // Name: app1
 // Key: 0ZdNlr7LrQocaqz74k6usQsOsqhqSIaUarSTf8mxnHuQVh9CvKAfpUy94VvBmFMq
+// Secret: HOvMgMDQ256jybfFokYt1kAokxtxXEA0mgyTbRQY4iPxzthaPtPj3CrUrxJ9uadP
 ```
 
 Deactivate a key using `php artisan apikey:deactivate {name}`.
@@ -123,6 +124,7 @@ class UserController extends Controller
 In order to pass the `auth.apikey` middleware, requests must include an `X-Authorization` header as part of the request, with its value being an active API key.
 
     X-Authorization: KuKMQbgZPv0PRC6GqCMlDQ7fgdamsVY75FrQvHfoIbw4gBaG5UX0wfk6dugKxrtW
+    X-Authorization-Secret: HOvMgMDQ256jybfFokYt1kAokxtxXEA0mgyTbRQY4iPxzthaPtPj3CrUrxJ9uadP
 
 ## Unauthorized Requests
 
