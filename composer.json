@@ -7,6 +7,10 @@
         {
             "name": "Elliott Jarnutowski",
             "email": "e@jarno.co"
+        },
+        {
+            "name": "Matt Thiessen",
+            "email": "matt@thiessen.us"
         }
     ],
     "minimum-stability": "stable",
@@ -20,8 +24,8 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "ejarnutowski/laravel-api-key"
+            "providers": [
+                "Ejarnutowski\\LaravelApiKey\\Providers\\ApiKeyServiceProvider"
             ]
         }
     }

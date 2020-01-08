@@ -7,9 +7,12 @@ Laravel API Key Auth
 
 ## Installation
 
-Run `composer require ejarnutowski/laravel-api-key`.
+Since this version is a fork, load the package from as a <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS repository</a>.
 
-In your `config/app.php` file, add the Laravel API Key service provider to the end of the `providers` array.
+Run `composer config repositories.stillatmylinux vcs https://github.com/stillatmylinux/laravel-api-key.git`
+Run `composer require stillatmylinux/laravel-api-key:dev-master`
+
+Composer will auto discover the ApiKeyServiceProvider. However, if it does not, in your `config/app.php` file, add the Laravel API Key service provider to the end of the `providers` array.
 
 ```php
 'providers' => [
@@ -18,9 +21,17 @@ In your `config/app.php` file, add the Laravel API Key service provider to the e
 ],
 ```
 
-Publish the migration files
+Publish the migration and config files
 
     $ php artisan vendor:publish
+
+If you want to use a secret key with your API, open `config/apikey.php` and modify the enable_secret_key option.
+
+```php
+return array(
+	'enable_secret_key' => true,
+);
+```
 
 Run the migrations
 
