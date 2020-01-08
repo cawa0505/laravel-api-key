@@ -27,6 +27,10 @@ class AuthorizeApiKey
         $apiKey = ApiKey::getByKey($header);
 
         if ($apiKey instanceof ApiKey && Hash::check($secret, $apiKey->secret)) {
+            if (Hash::needsRehash($apiKey->secret)) {
+                $apiKey->secret = $secret; // The Observer will rehash it
+                $apiKey->save();
+            }
             $this->logAccessEvent($request, $apiKey);
             return $next($request);
         }
