@@ -26,11 +26,7 @@ class AuthorizeApiKey
         $secret = $request->header(self::AUTH_SECRET);
         $apiKey = ApiKey::getByKey($header);
 
-        if ($apiKey instanceof ApiKey && Hash::check($secret, $apiKey->secret)) {
-            if (Hash::needsRehash($apiKey->secret)) {
-                $apiKey->secret = $secret; // The Observer will rehash it
-                $apiKey->save();
-            }
+        if ($apiKey instanceof ApiKey && $this->testSecretKey($secret, $apiKey)) {
             $this->logAccessEvent($request, $apiKey);
             return $next($request);
         }
@@ -40,6 +36,32 @@ class AuthorizeApiKey
                 'message' => 'Unauthorized'
             ]]
         ], 401);
+    }
+
+    /**
+     * Test the secret key, but only if it is configured to be used
+     *
+     * @param string $secret
+     * @param ApiKey $apiKey
+     * @return boolean
+     */
+    public function testSecretKey($secret, ApiKey $apiKey) {
+        if(config('apikey.enable_secret_key') === true) {
+            if($secret && Hash::check($secret, $apiKey->secret)) {
+                if (Hash::needsRehash($apiKey->secret)) {
+                    $apiKey->secret = $secret;
+                    $apiKey->save(); // The ApiKeyObserver will rehash it
+                }
+                // configured and passes
+                return true;
+            } else {
+                // configured, but failed
+                return false;
+            }
+        } else {
+            // not configured
+            return true;
+        }
     }
 
     /**

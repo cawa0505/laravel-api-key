@@ -26,6 +26,10 @@ class ApiKeyServiceProvider extends ServiceProvider
         $this->registerMiddleware($router);
         $this->registerMigrations(__DIR__ . '/../../database/migrations');
 
+        $this->publishes([
+            __DIR__.'/../config/apikey.php' => config_path('apikey.php'),
+        ], 'apikey-config');
+
         ApiKey::observe(ApiKeyObserver::class);
     }
 
@@ -42,6 +46,10 @@ class ApiKeyServiceProvider extends ServiceProvider
             GenerateApiKey::class,
             ListApiKeys::class,
         ]);
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/apikey.php', 'apikey'
+        );
     }
 
     /**

@@ -9,6 +9,8 @@ class ApiKeyObserver
 {
 	public function creating(ApiKey $apiKey)
 	{
-		$apiKey->secret = Hash::make($apiKey->secret);
+		if ($apiKey->secret) {
+			$apiKey->secret = Hash::make($apiKey->secret);
+		}
 	}
 }

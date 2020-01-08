@@ -44,14 +44,18 @@ class GenerateApiKey extends Command
         $apiKey       = new ApiKey;
         $apiKey->name = $name;
         $apiKey->key  = ApiKey::generateKey();
-        $apiKey->secret  = ApiKey::generateSecret();
+        $apiKey->secret = '';
 
         $this->info('API key created');
         $this->info('Name: ' . $apiKey->name);
         $this->info('Key: '  . $apiKey->key);
-        $this->info('Secret: '  . $apiKey->secret);
 
-        $apiKey->save();
+        if(config('apikey.enable_secret_key') === true) {
+            $apiKey->secret = ApiKey::generateSecret();
+            $this->info('Secret: '  . $apiKey->secret);
+        }
+
+        $apiKey->save(); // the ApiKeyObserver will hash the secret
     }
 
     /**
