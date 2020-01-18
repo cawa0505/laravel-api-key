@@ -3,7 +3,7 @@ Laravel API Key Auth with optional secret key
 
 ## Installation
 
-Since this version is a fork, load the package from as a <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS repository</a>.
+Since this version is a <a href="https://github.com/ejarnutowski/laravel-api-key">fork</a>, load the package with composer as a <a href="https://getcomposer.org/doc/05-repositories.md#vcs">VCS repository</a>.
 
 Run `composer config repositories.stillatmylinux vcs https://github.com/stillatmylinux/laravel-api-key.git`  
 Run `composer require stillatmylinux/laravel-api-key:dev-master`
